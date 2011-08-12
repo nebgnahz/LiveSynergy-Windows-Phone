@@ -1,0 +1,120 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="LiveSynergy.Pages.AddNewDevice"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"    
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="728" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="False">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="AddThingTitle" 
+                       Text="ADD A DEVICE" 
+                       Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="AddThingPageTitle" 
+                       Text="new" 
+                       Margin="9,-7,0,0" 
+                       Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <ScrollViewer>
+                <StackPanel>
+                    <TextBlock Text="device name" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
+                    <TextBox x:Name="DeviceNameOnAdd"  KeyUp="EnterKeyUp" Width="Auto"></TextBox>
+
+
+                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}">
+                        LivePulse ID <Run Foreground="MediumOrchid"> (optional)</Run>
+                    </TextBlock>
+                    <TextBox x:Name="LivePulseIDOnAdd"  KeyUp="EnterKeyUp" Margin="0,0"></TextBox>
+                    
+                    <toolkit:ListPicker x:Name="TypeOnAdd" 
+                                        Margin="12, 0, 0, 12" 
+                                        ItemsSource="{Binding}" 
+                                        FullModeHeader="type">
+                        <toolkit:ListPicker.HeaderTemplate>
+                            <DataTemplate>
+                                <ContentControl FontSize="{StaticResource PhoneFontSizeSmall}" Foreground="{StaticResource PhoneForegroundBrush}" Content="Type"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.HeaderTemplate>
+                        <toolkit:ListPicker.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding}" Margin="0 0 0 0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </toolkit:ListPicker.ItemTemplate>
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="16 21 0 20">
+                                    <TextBlock Text="{Binding}" Margin="16 0 0 0" FontSize="43" FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
+                    
+                    <TextBlock Text="location" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
+                    <TextBox x:Name="LocationOnAdd"  KeyUp="EnterKeyUp" Margin="0,0"></TextBox>
+                    <!-- <toolkit:AutoCompleteBox x:Name="LocationOnAdd"
+                                             VerticalAlignment="Top" 
+                                             Margin="0,0"
+                                             KeyUp="EnterKeyUp" 
+                                             FilterMode="Contains"
+                                             SelectionChanged="LocationOnAdd_SelectionChanged">
+                    </toolkit:AutoCompleteBox> -->
+                    
+                    <toolkit:ToggleSwitch x:Name="ShowOnMapToggle"
+                                          Header="show on map?" 
+                                          FontSize="{StaticResource PhoneFontSizeSmall}"
+                                          Margin="0 3 0 -10">
+                        <toolkit:ToggleSwitch.HeaderTemplate>
+                            <DataTemplate>
+                                <ContentControl FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" Content="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ToggleSwitch.HeaderTemplate>
+                    </toolkit:ToggleSwitch>
+
+                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}">
+                        Description
+                    </TextBlock>
+                    <TextBox x:Name="DescriptionOnAdd" 
+                             InputScope="Text"
+                             KeyUp="EnterKeyUp" 
+                             Margin="0,0" 
+                             Height="150"></TextBox>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.check.rest.png" 
+                                            Text="done"
+                                            Click="OnClickDone"
+                                            />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.cancel.rest.png" 
+                                            Text="cancel"
+                                            Click="OnClickCancel"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>

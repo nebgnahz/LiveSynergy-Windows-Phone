@@ -1,0 +1,115 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="LiveSynergy.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="clr-namespace:LiveSynergy.Data"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="GroupHeaderLocation">
+            <Border Background="{StaticResource PhoneAccentBrush}" 
+                    Padding="{StaticResource PhoneTouchTargetOverhang}">
+                <TextBlock Text="{Binding Key}" 
+                           Style="{StaticResource PhoneTextLargeStyle}"/>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="GroupHeaderNameFirst">
+            <Border Background="Transparent">
+                <Border Background="{StaticResource PhoneAccentBrush}" 
+                        Width="75" Height="75" 
+                        HorizontalAlignment="Left">
+                    <TextBlock Text="{Binding Key}" 
+                               Foreground="{StaticResource PhoneForegroundBrush}" 
+                               Style="{StaticResource PhoneTextExtraLargeStyle}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                </Border>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="GroupItemLocation">
+            <Border Background="{StaticResource PhoneAccentBrush}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
+                <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}"/>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="GroupItemNameFirst">
+            <Border Background="{StaticResource PhoneAccentBrush}" Width="99" Height="99" Margin="6" IsHitTestVisible="{Binding HasItems}">
+                <TextBlock Text="{Binding Key}" 
+                                       FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                                       FontSize="36"
+                                       Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                       Foreground="{StaticResource PhoneForegroundBrush}"                                        
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+            </Border>
+        </DataTemplate>
+
+    </phone:PhoneApplicationPage.Resources>
+
+    <controls:Panorama Name="MainPagePanorama" Title="LiveSynergy">
+        <controls:Panorama.Background>
+            <ImageBrush ImageSource="Images/background.jpg" Opacity="0.5"/>
+        </controls:Panorama.Background>
+        
+        <controls:PanoramaItem Header="indoor map" Margin="0 -20 0 0">
+        </controls:PanoramaItem>
+        
+                
+        
+        
+        <controls:PanoramaItem Header="devices" Margin="0 -20 0 0">
+            <toolkit:LongListSelector x:Name="ListPublicDevice" Background="Transparent"
+                    GroupHeaderTemplate="{StaticResource GroupHeaderNameFirst}"
+                    GroupItemTemplate="{StaticResource GroupItemNameFirst}">
+                <toolkit:LongListSelector.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="{StaticResource PhoneTouchTargetOverhang}">
+                            <StackPanel VerticalAlignment="Top">
+                                <TextBlock Text="{Binding DeviceName}" Style="{StaticResource PhoneTextLargeStyle}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" TextWrapping="Wrap" Margin="12,0,12,6"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </toolkit:LongListSelector.ItemTemplate>
+                
+            </toolkit:LongListSelector>
+        </controls:PanoramaItem>
+        <controls:PanoramaItem Header="trigger" Margin="0 -20 0 0">
+        </controls:PanoramaItem>
+    </controls:Panorama>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <shell:ApplicationBarIconButton IconUri="Images/appbar.add.rest.png" 
+                                            Text="Add" 
+                                            Click="OnAppBarAddClick"/>
+            
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="sign in/sign up..."
+                                              Click="OnClickSignUp">
+                </shell:ApplicationBarMenuItem>
+                
+                <shell:ApplicationBarMenuItem Text="sort by name"
+                                              Click="OnClickSortByName">
+                </shell:ApplicationBarMenuItem>
+
+                <shell:ApplicationBarMenuItem Text="sort by location"
+                                              Click="OnClickSortByLocation">
+                </shell:ApplicationBarMenuItem>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    
+
+</phone:PhoneApplicationPage>
