@@ -1,0 +1,3 @@
+This is the visual studio project for LiveSynergy Project of MASS @ MSRA.
+
+MainPage.* and App.* are automatically generated when creating the projects. Other pages are in the 'Pages' directory. 'Image' directory includes some image files, and all the class definitions are in the 'Data' folder.
