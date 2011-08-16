@@ -48,8 +48,21 @@ namespace LiveSynergy.Pages
                 Canvas.SetLeft(yLabelPoint, -35);
                 Canvas.SetTop(yLabelPoint, -yDelta * 280 / MaxEnergy);
             }
+            
+            
+            /*  <TextBlock  Text="kW" Canvas.Left="-20" Canvas.Top="-330"/> */
+            TextBlock ylabelName = new TextBlock();
+            ylabelName.Text = "kW";
+            ylabel.Children.Add(ylabelName);
+            Canvas.SetLeft(ylabelName, -20);
+            Canvas.SetTop(ylabelName, -330);
 
-
+            
+            /*  <TextBlock x:Name="xlabelName" Canvas.Left="360" Canvas.Top="0"/>   */
+            TextBlock xlabelName = new TextBlock();
+            xlabel.Children.Add(xlabelName);
+            Canvas.SetLeft(xlabelName, 360);
+            Canvas.SetTop(xlabelName, 0);
             /*
              * xlabel
                 <TextBlock Text="0" Canvas.Left="-10" Canvas.Top="0"/>
@@ -60,39 +73,66 @@ namespace LiveSynergy.Pages
                 <TextBlock Text="25" Canvas.Left="245" Canvas.Top="0"/>
                 <TextBlock Text="30" Canvas.Left="295" Canvas.Top="0"/>
             */
-            int xDelta = 0, xlabelNum = 6, xlabelTotalTime = 60;
-            for (int i = 0; i < xlabelNum; i++)
+            
+            if (timeSpan == 60)
             {
-                xDelta += 50;
-                TextBlock xLabelPoint = new TextBlock();
-                xLabelPoint.Text = (xDelta / 50 * xlabelTotalTime / xlabelNum).ToString();
-                xlabel.Children.Add(xLabelPoint);
-                Canvas.SetLeft(xLabelPoint, xDelta - 5);
-                Canvas.SetTop(xLabelPoint, 0);
+                int xDelta = 0, xlabelNum = 6, xlabelTotalTime = 60;
+                for (int i = 0; i < xlabelNum; i++)
+                {
+                    xDelta += 50;
+                    TextBlock xLabelPoint = new TextBlock();
+                    xLabelPoint.Text = (xDelta / 50 * xlabelTotalTime / xlabelNum).ToString();
+                    xlabel.Children.Add(xLabelPoint);
+                    Canvas.SetLeft(xLabelPoint, xDelta - 5);
+                    Canvas.SetTop(xLabelPoint, 0);
+                }
+                xlabelName.Text = "min";
             }
-            xlabelName.Text = "min";
+            else
+            {
+                int xDelta = 0, xlabelNum = 6, xlabelTotalTime = 24;
+                for (int i = 0; i < xlabelNum; i++)
+                {
+                    xDelta += 50;
+                    TextBlock xLabelPoint = new TextBlock();
+                    xLabelPoint.Text = (xDelta / 50 * xlabelTotalTime / xlabelNum).ToString();
+                    xlabel.Children.Add(xLabelPoint);
+                    Canvas.SetLeft(xLabelPoint, xDelta - 5);
+                    Canvas.SetTop(xLabelPoint, 0);
+                }
+                xlabelName.Text = "hour";
+            }
         }
+
         private void InitializeViewEnergy(int timeSpan)
         {
+            /*<Path x:Name="DataPlot"  Stroke="Red" StrokeThickness="3"/>*/
+            Path DataPlot = new Path();
+            DataPlot.StrokeThickness = 3;
+            SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+            mySolidColorBrush.Color = Color.FromArgb(255, 255, 0, 0);
+            DataPlot.Stroke = mySolidColorBrush;
+            EnergyCanvas.Children.Add(DataPlot);
+
             int MaxEnergy = ThisDevice.EnergyConsumption.Max();
 
             PathFigure pathFigure = new PathFigure();
             PathGeometry pathGeometry = new PathGeometry();
             pathGeometry.Figures = new PathFigureCollection();
 
-            SolidColorBrush mySolidColorBrush = new SolidColorBrush();
             mySolidColorBrush.Color = Color.FromArgb(255, 204, 204, 255);
 
-            int xDelta = 0;
+            int xDelta = 340;
             int EnergySampleData;
             
-            for (int i = 0, j=ThisDevice.EnergyConsumption.Count; i < 7 ; i++, j = j- timeSpan/6)
+            for (int i = 0, j=ThisDevice.EnergyConsumption.Count-1; i < 6 ; i++, j = j - timeSpan/6)
             {
+                xDelta -= 50;
                 EnergySampleData = ThisDevice.EnergyConsumption[j];
                 if (i == 0)
                 {
-                    pathFigure.StartPoint = new Point(0, EnergySampleData * 280 / MaxEnergy);
-                }
+                    pathFigure.StartPoint = new Point(xDelta, EnergySampleData * 280 / MaxEnergy);
+                }   
                 else
                 {
                     LineSegment lineSegment = new LineSegment();
@@ -133,7 +173,6 @@ namespace LiveSynergy.Pages
                 Canvas.SetLeft(thePoint, xDelta - thePoint.Width / 2);
                 Canvas.SetTop(thePoint, (EnergySampleData - thePoint.Height / 2) * 280 / MaxEnergy);
 
-                xDelta += 50;
             }
             pathGeometry.Figures.Add(pathFigure);
             DataPlot.Data = pathGeometry;
@@ -185,6 +224,25 @@ namespace LiveSynergy.Pages
         void NavigateToChildPage(object sender, EventArgs args)
         {
         }
+        
+
+        private void OnClickViewHour(object sender, RoutedEventArgs e)
+        {
+            xlabel.Children.Clear();
+            ylabel.Children.Clear();
+            EnergyCanvas.Children.Clear();
+            InitializeLabel(60);
+            InitializeViewEnergy(60);
+        }
+        private void OnClickViewDay(object sender, RoutedEventArgs e)
+        {
+            xlabel.Children.Clear();
+            ylabel.Children.Clear();
+            EnergyCanvas.Children.Clear();
+            InitializeLabel(60 * 24);
+            InitializeViewEnergy(60 * 24);
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             // i need a loading page here
@@ -194,15 +252,24 @@ namespace LiveSynergy.Pages
             string index;
             if (NavigationContext.QueryString.TryGetValue("Index", out index))
             {
-                ThisDevice = AllDevice.PublicDevice[Int32.Parse(index)];
-                ObjectName.Text = ThisDevice.DeviceName.ToUpper();
+                ThisDevice = App.ViewModel.AllTheDevice[Int32.Parse(index)];
+                devicePivot.Title = ThisDevice.DeviceName.ToUpper();
 
-
+                classificationText.Text = ThisDevice.Classification;
+                locationText.Text = ThisDevice.DeviceLocation;
                 stateList.ItemsSource = ThisDevice.DeviceState;
                 commandList.ItemsSource = ThisDevice.DeviceCommand;
                 eventList.ItemsSource = ThisDevice.DeviceEvent;
                 childrenList.ItemsSource = ThisDevice.DeviceChildren;
-                
+                descriptionText.Text = ThisDevice.DeviceDescription;
+
+                Random _rand = new Random(1000);
+                ThisDevice.EnergyConsumption = new List<int>();
+                for (int i = 0; i < 24 * 60; i++)
+                {
+                    ThisDevice.EnergyConsumption.Add(_rand.Next(0, 500));
+                }
+
                 InitializeLabel(60);
                 InitializeViewEnergy(60);
                 startTime = DateTime.Now;
@@ -210,19 +277,5 @@ namespace LiveSynergy.Pages
             }
         }
 
-        private void OnClickViewHour(object sender, RoutedEventArgs e)
-        {
-            xlabel.Children.Clear();
-            ylabel.Children.Clear();
-            EnergyCanvas.Children.Clear();
-            InitializeViewEnergy(60);
-        }
-        private void OnClickViewDay(object sender, RoutedEventArgs e)
-        {
-            xlabel.Children.Clear();
-            ylabel.Children.Clear();
-            EnergyCanvas.Children.Clear();
-            InitializeViewEnergy(60 * 24);
-        }
     }
 }

@@ -16,154 +16,167 @@
     mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480"
     shell:SystemTray.IsVisible="False">
 
-    <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <control:Pivot x:Name="devicePivot">
+        <!--ContentPanel - place additional content here-->
+        <control:PivotItem Header="properties">
+            <ScrollViewer>
+                <StackPanel DataContext="{Binding deviceToFind}" Height="Auto">
+                    <TextBlock Text="classification" 
+                                Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                Margin="12, 0, 0, 0"
+                                Foreground="MediumOrchid">
+                    </TextBlock>
+                    <TextBlock x:Name="classificationText"
+                                Style="{StaticResource PhoneTextLargeStyle}"
+                                Margin="24, 0, 0, 0">
+                    </TextBlock>
 
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,0,0,28">
-            <TextBlock x:Name="ObjectName" Style="{StaticResource PhoneTextNormalStyle}"/>
-        </StackPanel>
+                    <TextBlock Text="location" 
+                                Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                Margin="12, 17, 0, 0"
+                                Foreground="MediumOrchid">
+                    </TextBlock>
+                    <TextBlock x:Name="locationText"
+                                Style="{StaticResource PhoneTextLargeStyle}"
+                                Margin="24, 0, 0, 0">
+                    </TextBlock>
+                            
+                    <TextBlock Text="state" 
+                                Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                Margin="12, 17, 0, 0"
+                                Foreground="MediumOrchid">
+                    </TextBlock>
+                    <ListBox x:Name="stateList"
+                                FontSize="{StaticResource PhoneFontSizeLarge}"
+                                Margin="24, 0, 0, 0"
+                                IsHitTestVisible="False">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Padding" Value="3"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
 
-        <control:Pivot x:Name="devicePivot">
-            <!--ContentPanel - place additional content here-->
-            <control:PivotItem Header="properties">
-                <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-                    <ScrollViewer>
-                        <StackPanel DataContext="{Binding deviceToFind}" Height="Auto">
-                            <TextBlock Text="state" 
-                                       Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                       Margin="12, 0, 0, 0"
-                                       Foreground="MediumOrchid">
-                            </TextBlock>
-                            <ListBox x:Name="stateList"
-                                     FontSize="{StaticResource PhoneFontSizeLarge}"
-                                     Margin="24, 0, 0, 0"
-                                     IsHitTestVisible="False">
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
-                                        <Setter Property="Padding" Value="3"/>
-                                    </Style>
-                                </ListBox.ItemContainerStyle>
-                            </ListBox>
+                    <TextBlock Text="command" 
+                                Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                Margin="12,17,0,0"
+                                Foreground="MediumOrchid">
+                    </TextBlock>
+                    <ListBox x:Name="commandList"
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                FontSize="{StaticResource PhoneFontSizeLarge}"
+                                SelectionChanged="ExcuteCommand" 
+                                SelectionMode="Single"
+                                Margin="24, 0, 0, 0">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border BorderBrush="LightGray" BorderThickness="1" Padding="4">
+                                                <ContentPresenter />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Padding" Value="3"/>
+                                <Setter Property="Margin" Value="0, 0, 0, 12"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                            
+                    <TextBlock Text="event" 
+                                Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                Margin="12,17,0,0"
+                                Foreground="MediumOrchid">
+                    </TextBlock>
+                    <ListBox x:Name="eventList" 
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                FontSize="{StaticResource PhoneFontSizeLarge}"
+                                SelectionChanged="CreateTrigger" 
+                                SelectionMode="Single"
+                                Margin="24, 0, 0, 0">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Padding" Value="3"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                            
+                            
+                    <TextBlock Text="children" 
+                                Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                Margin="12,17,0,0"
+                                Foreground="MediumOrchid">
+                    </TextBlock>
+                    <ListBox x:Name="childrenList" 
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                FontSize="{StaticResource PhoneFontSizeLarge}"
+                                SelectionChanged="NavigateToChildPage" 
+                                SelectionMode="Single"
+                                Margin="24, 0, 0, 0">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Padding" Value="3"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
 
-                            <TextBlock Text="command" 
-                                       Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                       Margin="12,17,0,0"
-                                       Foreground="MediumOrchid">
-                            </TextBlock>
-                            <ListBox x:Name="commandList"
-                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                     FontSize="{StaticResource PhoneFontSizeLarge}"
-                                     SelectionChanged="ExcuteCommand" 
-                                     SelectionMode="Single"
-                                     Margin="24, 0, 0, 0">
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="ListBoxItem">
-                                                    <Border BorderBrush="LightGray" BorderThickness="1" Padding="4">
-                                                        <ContentPresenter />
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Setter Property="Padding" Value="3"/>
-                                        <Setter Property="Margin" Value="0, 0, 0, 12"/>
-                                    </Style>
-                                </ListBox.ItemContainerStyle>
-                            </ListBox>
-                            
-                            <TextBlock Text="event" 
-                                       Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                       Margin="12,17,0,0"
-                                       Foreground="MediumOrchid">
-                            </TextBlock>
-                            <ListBox x:Name="eventList" 
-                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                     FontSize="{StaticResource PhoneFontSizeLarge}"
-                                     SelectionChanged="CreateTrigger" 
-                                     SelectionMode="Single"
-                                     Margin="24, 0, 0, 0">
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
-                                        <Setter Property="Padding" Value="3"/>
-                                    </Style>
-                                </ListBox.ItemContainerStyle>
-                            </ListBox>
-                            
-                            
-                            <TextBlock Text="children" 
-                                       Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                       Margin="12,17,0,0"
-                                       Foreground="MediumOrchid">
-                            </TextBlock>
-                            <ListBox x:Name="childrenList" 
-                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                     FontSize="{StaticResource PhoneFontSizeLarge}"
-                                     SelectionChanged="NavigateToChildPage" 
-                                     SelectionMode="Single"
-                                     Margin="24, 0, 0, 0">
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
-                                        <Setter Property="Padding" Value="3"/>
-                                    </Style>
-                                </ListBox.ItemContainerStyle>
-                            </ListBox>
+                    <TextBlock Text="description" 
+                                Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                Margin="12, 17, 0, 0"
+                                Foreground="MediumOrchid">
+                    </TextBlock>
+                    <TextBlock x:Name="descriptionText"
+                                TextWrapping="Wrap"
+                                Style="{StaticResource PhoneTextLargeStyle}"
+                                Margin="24, 0, 0, 0">
+                    </TextBlock>
 
-                        </StackPanel>
-                    </ScrollViewer>
-                </Grid>
-            </control:PivotItem>
-            <control:PivotItem Header="energy" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
-				<StackPanel>
-					<Canvas Height="400" Width="440">
-						<Canvas.RenderTransform>
-                                <CompositeTransform ScaleY="-1" TranslateY="400" TranslateX="30"/>
-						</Canvas.RenderTransform>	
-                        <Path Data="M0,0 L400,0 L390,10 M400,0 L390,-10" Stroke="Red" StrokeThickness="3"/>							
-						<Path Data="M0,0 L0,300 L10,290 M0,300 L-10,290" Stroke="Red" StrokeThickness="3"/>
-                        
-                        <Canvas x:Name="EnergyCanvas" Height="480">
-                            <Path x:Name="DataPlot"  Stroke="Red" StrokeThickness="3"/>
-    	                </Canvas>
-                        <TextBlock Text="0" Canvas.Left="-15" Canvas.Top="-30"/>
-                        <Canvas x:Name="xlabel">
-                            <Canvas.RenderTransform>
-                                <CompositeTransform ScaleY="-1"/>
-                            </Canvas.RenderTransform>
-                            
-                            <TextBlock x:Name="xlabelName" Canvas.Left="360" Canvas.Top="0"/>
-                        </Canvas>
-                        <Canvas x:Name="ylabel">
-                            <Canvas.RenderTransform>
-                                <CompositeTransform ScaleY="-1"/>
-                            </Canvas.RenderTransform>
-                            <TextBlock Text="kW" Canvas.Left="-20" Canvas.Top="-330"/>
-                        </Canvas>	
-					</Canvas>
-                    
-                    <StackPanel Orientation="Horizontal" Margin="12, 50, 0, 0">
-                        <RadioButton Content="view last hour" 
-                                 HorizontalAlignment="Center"
-                                 x:Name="lasthour"
-                                 VerticalAlignment="Top" 
-                                 Click="OnClickViewHour" />
-                        <RadioButton Content="view last day" 
-                                 HorizontalAlignment="Center" 
-                                 x:Name="lastday"
-                                 VerticalAlignment="Top" 
-                                 Click="OnClickViewDay"/>
-                    </StackPanel>
-                    
                 </StackPanel>
-            </control:PivotItem>
-        </control:Pivot>
-        
-    </Grid>
-
+            </ScrollViewer>
+        </control:PivotItem>
+        <control:PivotItem Header="energy" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+			<StackPanel>
+				<Canvas Height="400" Width="440">
+					<Canvas.RenderTransform>
+                            <CompositeTransform ScaleY="-1" TranslateY="400" TranslateX="30"/>
+					</Canvas.RenderTransform>	
+                    <Path Data="M0,0 L400,0 L390,10 M400,0 L390,-10" Stroke="Red" StrokeThickness="3"/>							
+					<Path Data="M0,0 L0,300 L10,290 M0,300 L-10,290" Stroke="Red" StrokeThickness="3"/>
+                        
+                        
+                    <Canvas x:Name="EnergyCanvas" Height="480">
+    	            </Canvas>
+                        
+                        
+                    <TextBlock Text="0" Canvas.Left="-15" Canvas.Top="-30"/>
+                    <Canvas x:Name="xlabel">
+                        <Canvas.RenderTransform>
+                            <CompositeTransform ScaleY="-1"/>
+                        </Canvas.RenderTransform>                            
+                    </Canvas>
+                    <Canvas x:Name="ylabel">
+                        <Canvas.RenderTransform>
+                            <CompositeTransform ScaleY="-1"/>
+                        </Canvas.RenderTransform>                            
+                    </Canvas>	
+				</Canvas>
+                    
+                <StackPanel Orientation="Horizontal" Margin="12, 50, 0, 0">
+                    <RadioButton Content="view last hour" 
+                                HorizontalAlignment="Center"
+                                x:Name="lasthour"
+                                VerticalAlignment="Top" 
+                                Click="OnClickViewHour" />
+                    <RadioButton Content="view last day" 
+                                HorizontalAlignment="Center" 
+                                x:Name="lastday"
+                                VerticalAlignment="Top" 
+                                Click="OnClickViewDay"/>
+                </StackPanel>
+                    
+            </StackPanel>
+        </control:PivotItem>
+    </control:Pivot>
 </phone:PhoneApplicationPage>

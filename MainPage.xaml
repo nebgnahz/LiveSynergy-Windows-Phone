@@ -66,10 +66,7 @@
         <controls:PanoramaItem Header="indoor map" Margin="0 -20 0 0">
         </controls:PanoramaItem>
         
-                
-        
-        
-        <controls:PanoramaItem Header="devices" Margin="0 -20 0 0">
+        <controls:PanoramaItem Header="favorite" Margin="0 -20 0 0">
             <toolkit:LongListSelector x:Name="ListPublicDevice" Background="Transparent"
                     GroupHeaderTemplate="{StaticResource GroupHeaderNameFirst}"
                     GroupItemTemplate="{StaticResource GroupItemNameFirst}">

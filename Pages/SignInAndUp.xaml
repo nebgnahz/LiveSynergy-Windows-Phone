@@ -21,129 +21,142 @@
         <controls:Pivot x:Name="SignInOrUpPivot" Title="LiveSynergy">
             <!--Pivot item one-->
             <controls:PivotItem x:Name="SignInPivot" Header="sign in">
-                <Grid x:Name="SignInGrid" Grid.Row="1" Margin="12,0,12,0">
-                    <StackPanel>
-                        <TextBlock Text="Name" 
-                           Style="{StaticResource PhoneTextNormalStyle}">
-                        </TextBlock>
-                        <TextBox  x:Name="NameOnSignIn" 
-                                  Width="Auto" 
-                                  KeyUp="EnterKeyUp">
-                        </TextBox>
-                        <TextBlock Text="Password" 
-                                   Style="{StaticResource PhoneTextNormalStyle}">
-                        </TextBlock>
-                        <PasswordBox x:Name="PasswordOnSignIn" 
-                                     KeyUp="EnterKeyUp"
-                                     Password="{Binding PasswordOnSignIn}">
-                        </PasswordBox>
+                <StackPanel>
+                    <TextBlock Text="user name" 
+                               Style="{StaticResource PhoneTextNormalStyle}">
+                    </TextBlock>
+                    <TextBox  x:Name="NameOnSignIn" 
+                                Width="Auto" 
+                                KeyUp="EnterKeyUp">
+                    </TextBox>
+                    <TextBlock Text="password" 
+                                Style="{StaticResource PhoneTextNormalStyle}">
+                    </TextBlock>
+                    <PasswordBox x:Name="PasswordOnSignIn" 
+                                    KeyUp="EnterKeyUp"
+                                    Password="{Binding PasswordOnSignIn}">
+                    </PasswordBox>
 
-                        <CheckBox Content="remember name and password" 
-                                  Height="71" 
-                                  Name="IsRememberPW" />
-                        <CheckBox Content="automatically sign in" 
-                                  Height="71" 
-                                  Name="IsAutoSignIn" />
-                        <TextBlock Height="Auto" 
-                                   Name="Hint" 
-                                   TextWrapping="Wrap"  
-                                   VerticalAlignment="Center"
-                                   Foreground ="MediumOrchid"
-                                   Text="* (Or sign up by sliding right to sign up first!)" />
-                    </StackPanel>
-                </Grid>
+                    <CheckBox Content="remember name and password" 
+                                Height="71" 
+                                Name="IsRememberPW" />
+                    <CheckBox Content="automatically sign in" 
+                                Height="71" 
+                                Name="IsAutoSignIn" />
+                    <TextBlock Height="Auto" 
+                                Name="Hint" 
+                                TextWrapping="Wrap"  
+                                VerticalAlignment="Center"
+                                Foreground ="MediumOrchid"
+                                Text="* (Or slide right to sign up first!)" 
+                                Margin="12, -1, 0, 10"/>
+                </StackPanel>                
             </controls:PivotItem>
 
             <!--Pivot item two-->
             <controls:PivotItem x:Name="SignUpPivot" Header="sign up">
-                <Grid x:Name="SignUpGrid" Grid.Row="1" Margin="12,0,12,0">
-                    <ScrollViewer>
-                        <StackPanel>
-                            <TextBlock Text="Name"                      
-                                       Style="{StaticResource PhoneTextNormalStyle}">
-                            </TextBlock>
-                            <TextBox  x:Name="NameOnSignUp" 
-                                      Width="Auto" 
-                                      KeyUp="EnterKeyUp">
-                            </TextBox>
+                <ScrollViewer>
+                    <StackPanel>
+                        <TextBlock Text="name"                      
+                                    Style="{StaticResource PhoneTextNormalStyle}">
+                        </TextBlock>
+                        <TextBox  x:Name="NameOnSignUp" 
+                                    Width="Auto" 
+                                    KeyUp="EnterKeyUp">
+                        </TextBox>
 
-                            <TextBlock Style="{StaticResource PhoneTextNormalStyle}">
-                                LiveLink ID <Run Foreground="MediumOrchid"> (optional)</Run>
-                            </TextBlock>
-                            <TextBox x:Name="LiveLinkIDOnSignUp" 
-                                     KeyUp="EnterKeyUp" 
-                                     Text="{Binding LiveLinkIDOnSignUp}">
-                            </TextBox>
+                        <TextBlock Text="user name"                   
+                                    Style="{StaticResource PhoneTextNormalStyle}">
+                        </TextBlock>
+                        <TextBox  x:Name="UserNameOnSignUp" 
+                                    Width="Auto" 
+                                    KeyUp="EnterKeyUp">
+                        </TextBox>
 
-                            <toolkit:ListPicker x:Name="MSRAGroupOnSignUp" 
-                                                Margin="12, -1, 0, 10" 
-                                                ItemsSource="{Binding}" 
-                                                FullModeHeader="Group@MSRA" 
-                                                CacheMode="BitmapCache">
-                                <toolkit:ListPicker.HeaderTemplate>
-                                    <DataTemplate>
-                                        <ContentControl FontSize="{StaticResource PhoneFontSizeSmall}" 
-                                                        Foreground="{StaticResource PhoneForegroundBrush}" 
-                                                        Content="Group@MSRA"/>
-                                    </DataTemplate>
-                                </toolkit:ListPicker.HeaderTemplate>
-                                <toolkit:ListPicker.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding}" 
-                                                       Margin="0 0 0 0"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </toolkit:ListPicker.ItemTemplate>
-                                <toolkit:ListPicker.FullModeItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" 
-                                                    Margin="16 21 0 20">
-                                            <TextBlock Text="{Binding}" 
-                                                       Margin="16 0 0 0" 
-                                                       FontSize="35" 
-                                                       FontFamily="{StaticResource PhoneFontFamilyLight}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </toolkit:ListPicker.FullModeItemTemplate>
-                            </toolkit:ListPicker>
+                        <TextBlock Style="{StaticResource PhoneTextNormalStyle}">
+                            LiveLink ID <Run Foreground="MediumOrchid"> (optional)</Run>
+                        </TextBlock>
+                        <TextBox x:Name="LiveLinkIDOnSignUp" 
+                                    KeyUp="EnterKeyUp" 
+                                    Text="{Binding LiveLinkIDOnSignUp}">
+                        </TextBox>
 
-                            <TextBlock Text="E-mail" 
-                                       Style="{StaticResource PhoneTextNormalStyle}">
-                            </TextBlock>
-                            <TextBox x:Name="EmailOnSignUp"
-                                     KeyUp="EnterKeyUp" 
-                                     LostFocus="EmailLostFocus"  
-                                     Text="{Binding UserEmailOnSignUp}" 
-                                     InputScope="EmailUserName">
-                            </TextBox>
+                        <toolkit:ListPicker x:Name="MSRAGroupOnSignUp" 
+                                            Margin="12, -1, 12, 10" 
+                                            ItemsSource="{Binding}" 
+                                            FullModeHeader="group@MSRA">
+                            <toolkit:ListPicker.HeaderTemplate>
+                                <DataTemplate>
+                                    <ContentControl FontSize="{StaticResource PhoneFontSizeSmall}" 
+                                                    Foreground="{StaticResource PhoneForegroundBrush}" 
+                                                    Content="group@MSRA"/>
+                                </DataTemplate>
+                            </toolkit:ListPicker.HeaderTemplate>
+                            <toolkit:ListPicker.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding}" 
+                                                    Margin="0 0 0 0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </toolkit:ListPicker.ItemTemplate>
+                            <toolkit:ListPicker.FullModeItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" 
+                                                Margin="16 21 0 20">
+                                        <TextBlock Text="{Binding}" 
+                                                    Margin="16 0 0 0" 
+                                                    FontSize="35" 
+                                                    FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </toolkit:ListPicker.FullModeItemTemplate>
+                        </toolkit:ListPicker>
 
-                            <TextBlock Text="Password" 
-                                       Style="{StaticResource PhoneTextNormalStyle}">
-                            </TextBlock>
-                            <PasswordBox x:Name="Password1OnSignUp" 
-                                         KeyUp="EnterKeyUp" 
-                                         Password="{Binding PasswordOnSignUp}">
-                            </PasswordBox>
+                        <TextBlock Text="phone number" 
+                                    Style="{StaticResource PhoneTextNormalStyle}">
+                        </TextBlock>
+                        <TextBox x:Name="PhoneNumberOnSignUp"
+                                    KeyUp="EnterKeyUp" 
+                                    Text="{Binding UserEmailOnSignUp}" 
+                                    InputScope="TelephoneNumber">
+                        </TextBox>
+                            
+                        <TextBlock Text="E-mail" 
+                                    Style="{StaticResource PhoneTextNormalStyle}">
+                        </TextBlock>
+                        <TextBox x:Name="EmailOnSignUp"
+                                    KeyUp="EnterKeyUp" 
+                                    LostFocus="EmailLostFocus"  
+                                    Text="{Binding UserEmailOnSignUp}" 
+                                    InputScope="EmailUserName">
+                        </TextBox>
 
-                            <TextBlock Text="Password Confirmation"                                
-                                       Style="{StaticResource PhoneTextNormalStyle}">
-                            </TextBlock>
-                            <PasswordBox x:Name="Password2OnSignUp"
-                                         KeyUp="EnterKeyUp" 
-                                         Password="{Binding PasswordConfirmOnSignUp}">
-                            </PasswordBox>
+                        <TextBlock Text="password" 
+                                    Style="{StaticResource PhoneTextNormalStyle}">
+                        </TextBlock>
+                        <PasswordBox x:Name="Password1OnSignUp" 
+                                        KeyUp="EnterKeyUp" 
+                                        Password="{Binding PasswordOnSignUp}">
+                        </PasswordBox>
 
-                            <CheckBox Content="remember name and password" 
-                                  Height="71" 
-                                  Name="IsRememberPWOnSignUp" />
-                            <CheckBox Content="automatically sign in" 
-                                  Height="71" 
-                                  Name="IsAutoSignInOnSignUp" />
+                        <TextBlock Text="password Confirmation"                                
+                                    Style="{StaticResource PhoneTextNormalStyle}">
+                        </TextBlock>
+                        <PasswordBox x:Name="Password2OnSignUp"
+                                        KeyUp="EnterKeyUp" 
+                                        Password="{Binding PasswordConfirmOnSignUp}">
+                        </PasswordBox>
 
-                        </StackPanel>
-                    </ScrollViewer>
-                </Grid>
+                        <CheckBox Content="remember name and password" 
+                                Height="71" 
+                                Name="IsRememberPWOnSignUp" />
+                        <CheckBox Content="automatically sign in" 
+                                Height="71" 
+                                Name="IsAutoSignInOnSignUp" />
+
+                    </StackPanel>
+                </ScrollViewer>
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>

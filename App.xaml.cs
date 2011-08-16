@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using LiveSynergy.Data;
 
 namespace LiveSynergy
 {
@@ -22,6 +23,13 @@ namespace LiveSynergy
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
+
+        // The static ViewModel, to be used across the application.
+        private static DeviceViewModel viewModel;
+        public static DeviceViewModel ViewModel
+        {
+            get { return viewModel; }
+        }
 
         /// <summary>
         /// Constructor for the Application object.
@@ -57,6 +65,27 @@ namespace LiveSynergy
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
+            // Specify the local database connection string.
+            string DBConnectionString = "Data Source=isostore:/Device.sdf";
+
+            // Create the database if it does not exist.
+            using (DeviceDataContext db = new DeviceDataContext(DBConnectionString))
+            {
+                if (db.DatabaseExists() == false)
+                {
+                    // Create the local database.
+                    db.CreateDatabase();
+
+                    // Save categories to the database.
+                    db.SubmitChanges();
+                }
+            }
+
+            // Create the ViewModel object.
+            viewModel = new DeviceViewModel(DBConnectionString);
+
+            // Query the local database and load observable collections.
+            viewModel.LoadCollectionsFromDatabase();
         }
 
         // Code to execute when the application is launching (eg, from Start)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -79,7 +80,8 @@ namespace LiveSynergy
         }
         void OnAppBarAddClick(object sender, EventArgs args)
         {
-            NavigationService.Navigate(new Uri("/Pages/AddNewDevice.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Pages/DeviceListPage.xaml", UriKind.Relative));
+            /*NavigationService.Navigate(new Uri("/Pages/AddNewDevice.xaml", UriKind.Relative));*/
         }
         void OnAppbarSettingClick(object sender, EventArgs args)
         {

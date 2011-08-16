@@ -24,19 +24,13 @@ namespace LiveSynergy.Data
 
             foreach (Device device in PublicDevice)
             {
-                device.DeviceState.Add("on");
-                device.DeviceState.Add("off");
+                device.DeviceStateInDB = "on;off";
 
-                device.DeviceCommand.Add("turn on");
-                device.DeviceCommand.Add("turn off");
-                device.DeviceCommand.Add("view energy consumption");
+                device.DeviceCommandInDB = "turn on;turn off; view energy";
 
+                device.DeviceCommandInDB = "IsTurnedOn;IsTurnedOff";
 
-                device.DeviceEvent.Add("OnTurnedOn");
-                device.DeviceEvent.Add("OnTurnedOff");
-
-                device.EnergyConsumption = new List<int>();
-                
+                device.EnergyConsumption = new List<int>();                
                 for (int i = 0; i < 24 * 60; i++ )
                 {
                     device.EnergyConsumption.Add(_rand.Next(0, 500));
@@ -44,4 +38,5 @@ namespace LiveSynergy.Data
             }
         }
     }
+
 }
