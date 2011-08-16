@@ -192,6 +192,7 @@ namespace LiveSynergy.Pages
             thePointForTouch.ManipulationCompleted -= new EventHandler<ManipulationCompletedEventArgs>(thePoint_ManipulationCompleted);
             MessageBox.Show((Canvas.GetLeft(thePointForTouch) + thePointForTouch.Width / 2).ToString() + "," + (Canvas.GetTop(thePointForTouch) * MaxEnergy / 360 + thePointForTouch.Height / 2).ToString());
         }
+
         void ExcuteCommand(object sender, EventArgs args)
         {
             if (commandList.SelectedIndex == -1)
@@ -220,9 +221,13 @@ namespace LiveSynergy.Pages
 
         void CreateTrigger(object sender, EventArgs args)
         {
+            if (eventList.SelectedIndex == -1)
+                return;
         }
+
         void NavigateToChildPage(object sender, EventArgs args)
         {
+
         }
         
 
@@ -254,15 +259,9 @@ namespace LiveSynergy.Pages
             {
                 ThisDevice = App.ViewModel.AllTheDevice[Int32.Parse(index)];
                 devicePivot.Title = ThisDevice.DeviceName.ToUpper();
-
-                classificationText.Text = ThisDevice.Classification;
-                locationText.Text = ThisDevice.DeviceLocation;
-                stateList.ItemsSource = ThisDevice.DeviceState;
-                commandList.ItemsSource = ThisDevice.DeviceCommand;
-                eventList.ItemsSource = ThisDevice.DeviceEvent;
-                childrenList.ItemsSource = ThisDevice.DeviceChildren;
-                descriptionText.Text = ThisDevice.DeviceDescription;
-
+                devicePivot.DataContext = ThisDevice;
+                
+                
                 Random _rand = new Random(1000);
                 ThisDevice.EnergyConsumption = new List<int>();
                 for (int i = 0; i < 24 * 60; i++)

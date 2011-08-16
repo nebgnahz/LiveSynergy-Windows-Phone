@@ -21,10 +21,14 @@ namespace LiveSynergy
         public DeviceListPage()
         {
             InitializeComponent();
-
+            
             ClickNoNavigate = false;
-            LoadForAllList();
+            
             All.SelectionChanged += OnPublicDeviceSelectedChanged;
+            SpaceList.SelectionChanged += OnPublicDeviceSelectedChanged;
+            PrivateList.SelectionChanged += OnPublicDeviceSelectedChanged;
+            PublicList.SelectionChanged += OnPublicDeviceSelectedChanged;
+            FriendList.SelectionChanged += OnPublicDeviceSelectedChanged;
         }
 
         private void LoadForAllList()
@@ -39,20 +43,20 @@ namespace LiveSynergy
             All.ItemsSource = devices;
             All.GroupItemTemplate = this.Resources["GroupItemNameFirst"] as DataTemplate;
 
+            var SpaceItem = from device in App.ViewModel.AllTheDevice
+                            where device.Classification == "SPACE"
+                            select device;
+            SpaceList.ItemsSource = SpaceItem;
+
+            var FriendItem = from device in App.ViewModel.AllTheDevice
+                             where device.Classification == "FRIEND"
+                             select device;
+            FriendList.ItemsSource = FriendItem;
+
             // public device list
             var publicDevice = from device in App.ViewModel.AllTheDevice
                                where device.Classification == "PUBLIC"
                                select device;
-            PublicList.ItemsSource = publicDevice;
-
-            var SpaceList = from device in App.ViewModel.AllTheDevice
-                            where device.Classification == "SPACE"
-                            select device;
-            PublicList.ItemsSource = publicDevice;
-
-            var FriendList = from device in App.ViewModel.AllTheDevice
-                             where device.Classification == "FRIEND"
-                             select device;
             PublicList.ItemsSource = publicDevice;
 
             var privateDevice = from device in App.ViewModel.AllTheDevice
@@ -125,6 +129,32 @@ namespace LiveSynergy
         {
             LoadForAllList();
         }
+
+        void OnClickSortByName(object sender, EventArgs args)
+        {
+            /*ListPublicDevice.GroupHeaderTemplate = this.Resources["GroupHeaderNameFirst"] as DataTemplate;
+            ListPublicDevice.ItemsSource = deviceByName;
+            ListPublicDevice.GroupItemTemplate = this.Resources["GroupItemNameFirst"] as DataTemplate;*/
+        }
+        void OnClickSortByLocation(object sender, EventArgs args)
+        {
+            /*
+                    ListPublicDevice.GroupHeaderTemplate = this.Resources["GroupHeaderLocation"] as DataTemplate;
+                    ListPublicDevice.ItemsSource = deviceByLocation;
+                    ListPublicDevice.GroupItemTemplate = this.Resources["GroupItemLocation"] as DataTemplate;
+            */
+        }
+
+
+        private double PreviousOpacity { get; set; }
+        private void Appbar_StateChanged(object sender, Microsoft.Phone.Shell.ApplicationBarStateChangedEventArgs args)
+        {
+            var opacity = this.ApplicationBar.Opacity;
+            this.ApplicationBar.Opacity = args.IsMenuVisible ? 1 : PreviousOpacity;
+            this.PreviousOpacity = opacity;
+        }
+
+
     }
 
     public class BoolToOpacity : IValueConverter
@@ -138,4 +168,6 @@ namespace LiveSynergy
             return value != null ? value.Equals(1) : false;
         }
     }
+
+    
 }

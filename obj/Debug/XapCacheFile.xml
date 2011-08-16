@@ -1,8 +1,8 @@
-﻿<xapCache source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\LiveSynergy.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="8/16/2011 1:48:01 PM">
+﻿<xapCache source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\LiveSynergy.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="8/16/2011 9:46:04 PM">
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="8/12/2011 8:44:55 PM" />
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Background.png" archivePath="Background.png" lastWriteTime="8/7/2011 1:23:10 PM" />
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="8/7/2011 1:18:43 PM" />
-  <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\obj\Debug\LiveSynergy.dll" archivePath="LiveSynergy.dll" lastWriteTime="8/16/2011 1:48:01 PM" />
+  <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\obj\Debug\LiveSynergy.dll" archivePath="LiveSynergy.dll" lastWriteTime="8/16/2011 9:46:03 PM" />
   <file source="c:\Program Files\Microsoft SDKs\Advertising for Phone\Microsoft.Advertising.Mobile.dll" archivePath="Microsoft.Advertising.Mobile.dll" lastWriteTime="7/8/2011 12:15:14 PM" />
   <file source="c:\Program Files\Microsoft SDKs\Advertising for Phone\Microsoft.Advertising.Mobile.UI.dll" archivePath="Microsoft.Advertising.Mobile.UI.dll" lastWriteTime="7/8/2011 12:15:14 PM" />
   <file source="c:\Program Files\Microsoft SDKs\Windows Phone\v7.1\Libraries\Silverlight\Microsoft.Phone.Controls.dll" archivePath="Microsoft.Phone.Controls.dll" lastWriteTime="7/13/2011 9:40:24 AM" />
@@ -20,11 +20,11 @@
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Images\lamp.jpg" archivePath="Images\lamp.jpg" lastWriteTime="8/14/2011 10:37:13 PM" />
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="8/6/2011 2:09:09 PM" />
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="8/14/2011 8:46:22 PM" />
+  <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\Images\appbar.delete.rest.png" archivePath="Images\appbar.delete.rest.png" lastWriteTime="7/29/2011 10:49:39 AM" />
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\Images\appbar.add.rest.png" archivePath="Images\appbar.add.rest.png" lastWriteTime="7/29/2011 10:49:39 AM" />
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\Images\appbar.back.rest.png" archivePath="Images\appbar.back.rest.png" lastWriteTime="7/29/2011 10:49:39 AM" />
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\Images\appbar.cancel.rest.png" archivePath="Images\appbar.cancel.rest.png" lastWriteTime="10/29/2010 7:35:26 PM" />
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\Images\appbar.check.rest.png" archivePath="Images\appbar.check.rest.png" lastWriteTime="10/29/2010 7:35:26 PM" />
-  <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\Images\appbar.delete.rest.png" archivePath="Images\appbar.delete.rest.png" lastWriteTime="7/29/2011 10:49:39 AM" />
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\Images\appbar.favs.addto.rest.png" archivePath="Images\appbar.favs.addto.rest.png" lastWriteTime="6/30/2011 8:30:42 PM" />
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\Images\appbar.next.rest.png" archivePath="Images\appbar.next.rest.png" lastWriteTime="7/29/2011 10:49:39 AM" />
   <file source="C:\Users\v-benzh\Documents\Visual Studio 2010\Projects\LiveSynergy\LiveSynergy\Bin\Debug\Images\appbar.run.rest.png" archivePath="Images\appbar.run.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />

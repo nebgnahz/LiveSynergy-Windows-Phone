@@ -13,7 +13,9 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="728" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="False">
+    shell:SystemTray.IsVisible="False"
+    xmlns:tilt="clr-namespace:ControlTiltEffect"
+    tilt:TiltEffect.IsTiltEnabled="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -62,22 +64,83 @@
                 </ScrollViewer>
             </controls:PivotItem>
             
-            <!--Pivot item two-->
-            
-            <controls:PivotItem x:Name="newObject" Header="new">
+            <!--Pivot item two-->            
+            <controls:PivotItem x:Name="newObject" Header="new" Margin="0,0,0,8">
                 <ScrollViewer>
                     <StackPanel>
                         <TextBlock Text="name" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
                         <TextBox x:Name="DeviceNameOnAdd"  KeyUp="EnterKeyUp" Width="Auto"></TextBox>
-
+                        
+                        <toolkit:ListPicker x:Name="CategoryOnAdd" 
+                                            Margin="12, 0, 12, 12" 
+                                            ItemsSource="{Binding}" 
+                                            FullModeHeader="category"
+                                            SelectionChanged="OnCategorySelected">
+                            <toolkit:ListPicker.HeaderTemplate>
+                                <DataTemplate>
+                                    <ContentControl FontSize="{StaticResource PhoneFontSizeSmall}" 
+                                                    Foreground="{StaticResource PhoneForegroundBrush}" 
+                                                    Content="category"/>
+                                </DataTemplate>
+                            </toolkit:ListPicker.HeaderTemplate>
+                            <toolkit:ListPicker.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding}" Margin="0 0 0 0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </toolkit:ListPicker.ItemTemplate>
+                            <toolkit:ListPicker.FullModeItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="16 21 0 20">
+                                        <TextBlock Text="{Binding}" Margin="16 0 0 0" FontSize="43" FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </toolkit:ListPicker.FullModeItemTemplate>
+                        </toolkit:ListPicker>
+                        
+                        
                         <TextBlock Style="{StaticResource PhoneTextNormalStyle}">
                             LivePulse ID <Run Foreground="MediumOrchid"> (optional)</Run>
                         </TextBlock>
                         <TextBox x:Name="LivePulseIDOnAdd"  KeyUp="EnterKeyUp" Margin="0,0"></TextBox>
 
+                        <CheckBox x:Name="ShowOnMapToggle"
+                                  Content="show it on map?" 
+                                  FontSize="{StaticResource PhoneFontSizeNormal}"
+                                  Margin="12 3 0 0"/>
+                        <CheckBox x:Name="AddToFavorite"
+                                  Content="add as favorite?" 
+                                  FontSize="{StaticResource PhoneFontSizeNormal}"
+                                  Margin="12 3 0 0"/>
+
+                        <!-- <toolkit:ToggleSwitch x:Name="AddToFavorite"
+                                              Header="add as favorite?" 
+                                              FontSize="{StaticResource PhoneFontSizeSmall}"
+                                              Margin="0 3 0 -10">
+                            <toolkit:ToggleSwitch.HeaderTemplate>
+                                <DataTemplate>
+                                    <ContentControl FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" Content="{Binding}"/>
+                                </DataTemplate>
+                            </toolkit:ToggleSwitch.HeaderTemplate>
+                        </toolkit:ToggleSwitch> -->
+                        
+
+                        <TextBlock Style="{StaticResource PhoneTextNormalStyle}">
+                            description
+                        </TextBlock>
+                        <TextBox x:Name="DescriptionOnAdd" 
+                                 InputScope="Text"
+                                 KeyUp="EnterKeyUp" 
+                                 Margin="0,0" 
+                                 Height="200">
+                        </TextBox>
+
+
                         <toolkit:ListPicker x:Name="TypeOnAdd" 
                                             Margin="12, 0, 12, 12" 
-                                            ItemsSource="{Binding}" 
+                                            ItemsSource="{Binding}"
+                                            Visibility="Collapsed"
                                             FullModeHeader="type">
                             <toolkit:ListPicker.HeaderTemplate>
                                 <DataTemplate>
@@ -102,8 +165,8 @@
                             </toolkit:ListPicker.FullModeItemTemplate>
                         </toolkit:ListPicker>
 
-                        <TextBlock Text="location" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
-                        <TextBox x:Name="LocationOnAdd"  KeyUp="EnterKeyUp" Margin="0,0"></TextBox>
+                        <TextBlock x:Name="LocationOnAddBlock" Text="location" Visibility="Collapsed" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
+                        <TextBox x:Name="LocationOnAdd" Visibility="Collapsed" KeyUp="EnterKeyUp" Margin="0,0"></TextBox>
                         <!-- <toolkit:AutoCompleteBox x:Name="LocationOnAdd"
                                                  VerticalAlignment="Top" 
                                                  Margin="0,0"
@@ -111,27 +174,6 @@
                                                  FilterMode="Contains"
                                                  SelectionChanged="LocationOnAdd_SelectionChanged">
                         </toolkit:AutoCompleteBox> -->
-
-                        <toolkit:ToggleSwitch x:Name="ShowOnMapToggle"
-                                              Header="show on map?" 
-                                              FontSize="{StaticResource PhoneFontSizeSmall}"
-                                              Margin="0 3 0 -10">
-                            <toolkit:ToggleSwitch.HeaderTemplate>
-                                <DataTemplate>
-                                    <ContentControl FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" Content="{Binding}"/>
-                                </DataTemplate>
-                            </toolkit:ToggleSwitch.HeaderTemplate>
-                        </toolkit:ToggleSwitch>
-
-                        <TextBlock Style="{StaticResource PhoneTextNormalStyle}">
-                            description
-                        </TextBlock>
-                        <TextBox x:Name="DescriptionOnAdd" 
-                                 InputScope="Text"
-                                 KeyUp="EnterKeyUp" 
-                                 Margin="0,0" 
-                                 Height="200">
-                        </TextBox>
                     </StackPanel>
                 </ScrollViewer>
             </controls:PivotItem>
@@ -140,7 +182,7 @@
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar>
+        <shell:ApplicationBar BackgroundColor="Transparent">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.check.rest.png" 
                                             Text="done"
                                             Click="OnClickDone"

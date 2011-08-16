@@ -14,128 +14,142 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="False">
+    shell:SystemTray.IsVisible="False"
+    xmlns:tilt="clr-namespace:ControlTiltEffect"
+    tilt:TiltEffect.IsTiltEnabled="True">
 
     <control:Pivot x:Name="devicePivot">
         <!--ContentPanel - place additional content here-->
-        <control:PivotItem Header="properties">
+        <control:PivotItem Header="info">
             <ScrollViewer>
-                <StackPanel DataContext="{Binding deviceToFind}" Height="Auto">
-                    <TextBlock Text="classification" 
+                <StackPanel Height="Auto">
+                    <TextBlock Text="name" 
                                 Style="{StaticResource PhoneTextExtraLargeStyle}"
                                 Margin="12, 0, 0, 0"
-                                Foreground="MediumOrchid">
+                                >
                     </TextBlock>
-                    <TextBlock x:Name="classificationText"
-                                Style="{StaticResource PhoneTextLargeStyle}"
-                                Margin="24, 0, 0, 0">
+                    <TextBlock x:Name="nameText"
+                               Text="{Binding DeviceName}"
+                                Style="{StaticResource PhoneTextNormalStyle}"
+                                Margin="24, -5, 0, 0">
+                    </TextBlock>
+
+                    <TextBlock x:Name="LivePulseID"
+                               Text="LivePulseID"
+                              Style="{StaticResource PhoneTextExtraLargeStyle}"
+                               Margin="12, 24, 0, 0">
+                    </TextBlock>
+                    <TextBlock x:Name="LivePulseIDText"
+                               Text="{Binding DeviceLiveID}"
+                               Style="{StaticResource PhoneTextNormalStyle}"
+                               Margin="24, -5, 0, 0"> 
                     </TextBlock>
 
                     <TextBlock Text="location" 
-                                Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                Margin="12, 17, 0, 0"
-                                Foreground="MediumOrchid">
+                               x:Name="location"
+                               Style="{StaticResource PhoneTextExtraLargeStyle}"
+                               Margin="12, 24, 0, 0">
                     </TextBlock>
                     <TextBlock x:Name="locationText"
-                                Style="{StaticResource PhoneTextLargeStyle}"
-                                Margin="24, 0, 0, 0">
+                               Text="{Binding DeviceLocation}"
+                                Style="{StaticResource PhoneTextNormalStyle}"
+                                Margin="24, -5, 0, 0">
                     </TextBlock>
-                            
-                    <TextBlock Text="state" 
-                                Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                Margin="12, 17, 0, 0"
-                                Foreground="MediumOrchid">
-                    </TextBlock>
-                    <ListBox x:Name="stateList"
-                                FontSize="{StaticResource PhoneFontSizeLarge}"
-                                Margin="24, 0, 0, 0"
-                                IsHitTestVisible="False">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="Padding" Value="3"/>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                    </ListBox>
-
-                    <TextBlock Text="command" 
-                                Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                Margin="12,17,0,0"
-                                Foreground="MediumOrchid">
-                    </TextBlock>
-                    <ListBox x:Name="commandList"
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                FontSize="{StaticResource PhoneFontSizeLarge}"
-                                SelectionChanged="ExcuteCommand" 
-                                SelectionMode="Single"
-                                Margin="24, 0, 0, 0">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="ListBoxItem">
-                                            <Border BorderBrush="LightGray" BorderThickness="1" Padding="4">
-                                                <ContentPresenter />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="Padding" Value="3"/>
-                                <Setter Property="Margin" Value="0, 0, 0, 12"/>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                    </ListBox>
-                            
-                    <TextBlock Text="event" 
-                                Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                Margin="12,17,0,0"
-                                Foreground="MediumOrchid">
-                    </TextBlock>
-                    <ListBox x:Name="eventList" 
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                FontSize="{StaticResource PhoneFontSizeLarge}"
-                                SelectionChanged="CreateTrigger" 
-                                SelectionMode="Single"
-                                Margin="24, 0, 0, 0">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="Padding" Value="3"/>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                    </ListBox>
-                            
-                            
-                    <TextBlock Text="children" 
-                                Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                Margin="12,17,0,0"
-                                Foreground="MediumOrchid">
-                    </TextBlock>
-                    <ListBox x:Name="childrenList" 
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                FontSize="{StaticResource PhoneFontSizeLarge}"
-                                SelectionChanged="NavigateToChildPage" 
-                                SelectionMode="Single"
-                                Margin="24, 0, 0, 0">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="Padding" Value="3"/>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                    </ListBox>
-
+                    
                     <TextBlock Text="description" 
                                 Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                Margin="12, 17, 0, 0"
-                                Foreground="MediumOrchid">
+                                Margin="12, 24, 0, 0">
                     </TextBlock>
                     <TextBlock x:Name="descriptionText"
-                                TextWrapping="Wrap"
-                                Style="{StaticResource PhoneTextLargeStyle}"
-                                Margin="24, 0, 0, 0">
+                               Text="{Binding DeviceDescription}"
+                                Style="{StaticResource PhoneTextNormalStyle}"
+                                Margin="24, -5, 0, 0">
                     </TextBlock>
 
                 </StackPanel>
             </ScrollViewer>
         </control:PivotItem>
+
+        <control:PivotItem Header="control">
+            <StackPanel>
+                <TextBlock Text="state" 
+                                Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                Margin="12, 0, 0, 0">
+                </TextBlock>
+                <ListBox x:Name="stateList"
+                         Opacity="0.8"
+                         FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                         Margin="24, 0, 0, 0"
+                         ItemsSource="{Binding DeviceState}"
+                         IsHitTestVisible="False">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="3,1,0,3"/>
+                            <Setter Property="Padding" Value="3,-3,0,3"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+
+                <TextBlock Text="command" 
+                                Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                Margin="12,24,0,0">
+                </TextBlock>
+                <ListBox x:Name="commandList"                         
+                         ItemsSource="{Binding DeviceCommand}"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                         FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                         SelectionChanged="ExcuteCommand" 
+                         SelectionMode="Single"
+                         Margin="24, 0, 0, 0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="3,1,0,3"/>
+                            <Setter Property="Padding" Value="3,-3,0,3"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+
+                <TextBlock Text="event" 
+                           Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                Margin="12,17,0,0">
+                </TextBlock>
+                <ListBox x:Name="eventList" 
+                         ItemsSource="{Binding DeviceEvent}"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                         FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                         SelectionChanged="CreateTrigger" 
+                         SelectionMode="Single"
+                         Margin="24, 0, 0, 0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="3,1,0,3"/>
+                            <Setter Property="Padding" Value="3,-3,0,3"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+
+
+                <TextBlock Text="children" 
+                                Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                Margin="12,17,0,0">
+                </TextBlock>
+                <ListBox x:Name="childrenList" 
+                         ItemsSource="{Binding DeviceChildren}"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                         FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                         SelectionChanged="NavigateToChildPage" 
+                         SelectionMode="Single"
+                         Margin="24, 0, 0, 0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="3,1,0,3"/>
+                            <Setter Property="Padding" Value="3,-3,0,3"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+            </StackPanel>
+        </control:PivotItem>
+
         <control:PivotItem Header="energy" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
 			<StackPanel>
 				<Canvas Height="400" Width="440">

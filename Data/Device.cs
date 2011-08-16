@@ -289,8 +289,26 @@ namespace LiveSynergy.Data
         [Column(CanBeNull=false)]
         public string Classification {set; get; }
 
+        
+        // Define completion value: private field, public property, and database column.
+        private bool _isNotFavorite;
         [Column]
-        public bool IsNotFavorite { set; get; }
+        public bool IsNotFavorite
+        {
+            get 
+            {
+                return _isNotFavorite; 
+            }
+            set
+            {
+                if (_isNotFavorite != value)
+                {
+                    NotifyPropertyChanging("IsNotFavorite");
+                    _isNotFavorite = value;
+                    NotifyPropertyChanged("IsNotFavorite");
+                }
+            }
+        }
 
         // Version column aids update performance.
         [Column(IsVersion = true)]

@@ -72,6 +72,7 @@
     <Compile Include="Data\Device.cs" />
     <Compile Include="Data\DeviceViewModel.cs" />
     <Compile Include="Data\extension.cs" />
+    <Compile Include="Data\TiltEffect.cs" />
     <Compile Include="Pages\DeviceListPage.xaml.cs">
       <DependentUpon>DeviceListPage.xaml</DependentUpon>
     </Compile>
@@ -139,7 +140,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\appbar.delete.rest.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\appbar.favs.addto.rest.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

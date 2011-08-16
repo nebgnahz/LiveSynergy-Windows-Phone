@@ -16,6 +16,8 @@ namespace LiveSynergy.Pages
 {
     public partial class AddNewDevice : PhoneApplicationPage
     {
+        static readonly string[] category = { "space", "device" };
+
         static readonly string[] types = { "Light", "Computer", "Television" };
 
         static readonly string[] ExistingFriendFromServer = { "Jeff", "Mike", "Kaifei", "Fred" };
@@ -23,12 +25,12 @@ namespace LiveSynergy.Pages
         static readonly string[] ExistingDeviceFromServer = { "\\msra\\floor\\12\\xbox_360", "\\msra\\floor\\12\\fridge", "\\msra\\floor\\12\\television" };
 
         List<string> location = new List<string>();
-        private static bool PublicOrPrivate;
 
         public AddNewDevice()
         {
             InitializeComponent();
             TypeOnAdd.DataContext = types;
+            CategoryOnAdd.DataContext = category;
 
             location.Add("\\msra\\floor\\12\\focus_room");
             location.Add("\\msra");
@@ -39,6 +41,26 @@ namespace LiveSynergy.Pages
 
             //this.LocationOnAdd.ItemsSource = location;
         }
+
+        void OnCategorySelected(object sender, EventArgs args)
+        {
+            if (CategoryOnAdd.SelectedItem.ToString() == "device")
+            {
+                LocationOnAddBlock.Visibility = Visibility.Visible;
+                LocationOnAdd.Visibility = Visibility.Visible;
+                TypeOnAdd.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                LocationOnAddBlock.Visibility = Visibility.Collapsed;
+                LocationOnAdd.Visibility = Visibility.Collapsed;
+                TypeOnAdd.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
+
+
         void OnClickDone(object sender, EventArgs args)
         {
             bool IsDoneAlready = true;
@@ -47,9 +69,9 @@ namespace LiveSynergy.Pages
                 MessageBox.Show("Please input the device name!");
                 IsDoneAlready = false;
             }
-            else if (LocationOnAdd.Text == String.Empty)
+            else if ((CategoryOnAdd.SelectedItem.ToString() == "device") && LocationOnAdd.Text == String.Empty)
             {
-                MessageBox.Show("Please input the location!");
+                MessageBox.Show("Please input the location of this device!");
                 IsDoneAlready = false;
             }
             if (IsDoneAlready)
@@ -63,33 +85,20 @@ namespace LiveSynergy.Pages
                 // http post to sign up a device
 
                 // using local storage to store something
-                
-                
                 Device newDevice = new Device
                 {
                     DeviceName = DeviceNameOnAdd.Text,
                     DeviceLocation = LocationOnAdd.Text,
-                    DeviceDescription = DescriptionOnAdd.Text
+                    DeviceDescription = DescriptionOnAdd.Text,
+                    IsNotFavorite = (AddToFavorite.IsChecked == false)
                 };
                 newDevice.DeviceStateInDB = "on;off;unknown";
-
-                newDevice.DeviceCommandInDB = "turn on;turn off; view energy";
-
+                newDevice.DeviceCommandInDB = "turn on;turn off;view energy";
                 newDevice.DeviceEventInDB = "IsTurnedOn;IsTurnedOff";
 
-                if (PublicOrPrivate)
-                {
-                    newDevice.Classification = "PUBLIC";
-                    PublicOrPrivate = false;
-                }
-                else 
-                {
-                    newDevice.Classification = "PRIVATE";
-                    PublicOrPrivate = true;
-                }
+                newDevice.Classification = CategoryOnAdd.SelectedItem.ToString().ToUpper();
 
-                newDevice.IsNotFavorite = true;
-                
+
                 // Add the item to the ViewModel.
                 App.ViewModel.AddToDoItem(newDevice);
 
@@ -132,7 +141,7 @@ namespace LiveSynergy.Pages
             {
                 existingFriend.Visibility = Visibility.Collapsed;
             }
-            
         }
+
     }
 }
